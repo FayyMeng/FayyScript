@@ -1,0 +1,2 @@
+# FayyScript
+Secret
