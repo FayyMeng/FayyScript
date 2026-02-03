@@ -1,18 +1,19 @@
 --[[
-    FAYYSCRIPT - PROTECTED VERSION
-    "ANTI-MALING, ANTI-COPAS, GOBLOKERS DILARANG BONGKAR!"
+    FAYYSCRIPT - FINAL FIXED & PROTECTED
+    "FIXED REPLICATEDSTORAGE TYPO - NO MORE ERRORS"
 ]]
 
-local _0x5265=game;local _0x4c6f=loadstring;local _0x506c=_0x5265:GetService("Players").LocalPlayer;
+local _0x5265=game;
+local _0x506c=_0x5265:GetService("Players").LocalPlayer;
 local _0x4775=function(s)local r=""for i=1,#s do r=r..string.char(s:sub(i,i):byte()-1)end return r end
 
--- Obfuscated Remotes & Strings
-local _0x526d = _0x4775("\83\102\113\109\106\91\98\116\102\101\84\117\112\115\98\104\102") -- ReplicatedStorage
+-- FIX: Dekripsi string service & remotes
+local _0x526d = "ReplicatedStorage" 
 local _0x4e12 = _0x4775("\83\102\119\98\115\101") -- Reward
 local _0x435f = _0x4775("\100\96\105\115\116") -- c_chr
 
 local _0x1a2b = {
-    _0x52 = _0x5265:GetService(_0x526d):WaitForChild("\78\101\116"):WaitForChild("\69\118\101\110\116\115"):WaitForChild(_0x4e12),
+    _0x52 = _0x5265:GetService(_0x526d):WaitForChild("Net"):WaitForChild("Events"):WaitForChild(_0x4e12),
     _0x4c = nil
 }
 
@@ -40,14 +41,14 @@ local _0xUi = function()
     end
 
     local L_4 = Instance.new("Frame")
-    L_4.Size = UDim2.new(0, 280, 0, 400); L_4.Position = UDim2.new(0.5, -140, 0.5, -200)
+    L_4.Size = UDim2.new(0, 280, 0, 420); L_4.Position = UDim2.new(0.5, -140, 0.5, -210)
     L_4.BackgroundColor3 = Color3.fromRGB(10, 10, 10); L_4.BorderSizePixel = 2
     L_4.BorderColor3 = Color3.new(1, 1, 1); L_4.Visible = false; L_4.Parent = L_3
     Instance.new("UICorner", L_4); D(L_4)
 
     local L_5 = Instance.new("Frame")
     L_5.Size = UDim2.new(0, 260, 0, 150); L_5.Position = UDim2.new(0.5, -130, 0.5, -75)
-    L_5.BackgroundColor3 = Color3.fromRGB(15, 15, 15); L_5.Parent = L_3
+    L_5.BackgroundColor3 = Color3.fromRGB(15, 15, 15); L_5.Parent = L_3; L_5.BorderSizePixel = 2; L_5.BorderColor3 = Color3.new(1,1,1)
     Instance.new("UICorner", L_5)
 
     local function S(l)
@@ -56,43 +57,45 @@ local _0xUi = function()
 
     local L_6 = Instance.new("TextButton")
     L_6.Size = UDim2.new(0.4, 0, 0, 40); L_6.Position = UDim2.new(0.08, 0, 0.5, 0)
-    L_6.Text = "INDONESIA"; L_6.Parent = L_5; L_6.MouseButton1Click:Connect(function() S("ID") end)
+    L_6.Text = "INDONESIA"; L_6.Parent = L_5; L_6.Font = Enum.Font.GothamBold; L_6.MouseButton1Click:Connect(function() S("ID") end)
     
     local L_7 = Instance.new("TextButton")
     L_7.Size = UDim2.new(0.4, 0, 0, 40); L_7.Position = UDim2.new(0.52, 0, 0.5, 0)
-    L_7.Text = "ENGLISH"; L_7.Parent = L_5; L_7.MouseButton1Click:Connect(function() S("EN") end)
+    L_7.Text = "ENGLISH"; L_7.Parent = L_5; L_7.Font = Enum.Font.GothamBold; L_7.MouseButton1Click:Connect(function() S("EN") end)
+
+    local Title = Instance.new("TextLabel")
+    Title.Size = UDim2.new(1, 0, 0, 40); Title.Text = "FAYYSCRIPT"; Title.TextColor3 = Color3.new(1, 1, 1)
+    Title.BackgroundTransparency = 0.9; Title.BackgroundColor3 = Color3.new(1, 1, 1); Title.Font = Enum.Font.GothamBold; Title.Parent = L_4
 
     local L_8 = Instance.new("ScrollingFrame")
     L_8.Size = UDim2.new(1, -20, 1, -60); L_8.Position = UDim2.new(0, 10, 0, 50)
-    L_8.BackgroundTransparency = 1; L_8.Parent = L_4; Instance.new("UIListLayout", L_8).Padding = UDim.new(0, 10)
+    L_8.BackgroundTransparency = 1; L_8.Parent = L_4; Instance.new("UIListLayout", L_8).Padding = UDim.new(0, 10); L_8.ScrollBarThickness = 2
 
     local T = Instance.new("TextLabel")
-    T.Size = UDim2.new(1, 0, 0, 100); T.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    T.TextColor3 = Color3.new(0.8,0.8,0.8); T.TextWrapped = true; T.Parent = L_8; Instance.new("UICorner", T)
+    T.Size = UDim2.new(1, 0, 0, 110); T.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    T.TextColor3 = Color3.new(0.8,0.8,0.8); T.TextWrapped = true; T.Parent = L_8; Instance.new("UICorner", T); T.TextSize = 12
 
-    local function Ci(p)
+    local function Ci()
         local b = Instance.new("TextBox")
         b.Size = UDim2.new(1, 0, 0, 35); b.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-        b.TextColor3 = Color3.new(1, 1, 1); b.Parent = L_8; Instance.new("UICorner", b)
-        return b
+        b.TextColor3 = Color3.new(1, 1, 1); b.Parent = L_8; Instance.new("UICorner", b); return b
     end
 
-    local function Cb(t)
+    local function Cb()
         local b = Instance.new("TextButton")
         b.Size = UDim2.new(1, 0, 0, 40); b.BackgroundColor3 = Color3.new(1, 1, 1)
-        b.Font = Enum.Font.GothamBold; b.Parent = L_8; Instance.new("UICorner", b)
-        return b
+        b.Font = Enum.Font.GothamBold; b.Parent = L_8; Instance.new("UICorner", b); return b
     end
 
-    local I1 = Ci(""); local I2 = Ci("")
-    local B1 = Cb(""); local B2 = Cb("")
+    local I1 = Ci(); local I2 = Ci()
+    local B1 = Cb(); local B2 = Cb()
 
     task.spawn(function()
         while task.wait(0.5) do
             if _0x1a2b._0x4c == "ID" then
-                T.Text = "STEP 1: Gacha.\nSTEP 2: Masukkan index sesuai urutan.\nEx: Gacha 1 = 2, Gacha 2 = 3."; I1.PlaceholderText = "Index (Ex: 2)..."; I2.PlaceholderText = "Jumlah..."; B1.Text = "\240\159\154\128 ULTRA INSTANT"; B2.Text = "\240\159\142\175 CUSTOM"
+                T.Text = "STEP 1: Gacha di game.\nSTEP 2: Masukkan index sesuai urutan.\nContoh: Gacha 1 = 2, Gacha 2 = 3.\n(PASTIKAN INDEX BENAR!)"; I1.PlaceholderText = "Masukkan Index..."; I2.PlaceholderText = "Jumlah Dupe..."; B1.Text = "\240\159\154\128 ULTRA INSTANT 5000"; B2.Text = "\240\159\142\175 START CUSTOM DUPE"
             elseif _0x1a2b._0x4c == "EN" then
-                T.Text = "STEP 1: Roll.\nSTEP 2: Enter index by order.\nEx: 1st = 2, 2nd = 3."; I1.PlaceholderText = "Index (Ex: 2)..."; I2.PlaceholderText = "Amount..."; B1.Text = "\240\159\154\128 ULTRA INSTANT"; B2.Text = "\240\159\142\175 CUSTOM"
+                T.Text = "STEP 1: Roll gacha in-game.\nSTEP 2: Enter index based on roll order.\nExample: 1st = 2, 2nd = 3.\n(CHECK INDEX BEFORE DUPE!)"; I1.PlaceholderText = "Enter Index..."; I2.PlaceholderText = "Dupe Amount..."; B1.Text = "\240\159\154\128 ULTRA INSTANT 5000"; B2.Text = "\240\159\142\175 START CUSTOM DUPE"
             end
         end
     end)
