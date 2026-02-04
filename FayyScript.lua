@@ -19,15 +19,12 @@ end)
 
 -- [ CONFIGURATION ]
 local _0xCFG = {
-    ID = "", AF = false, FM = "Auto Step (+6 -> +10)", SM = false,
     IV = "", CA = 0, FS = false, FMode = "Teleport", TS = 150,
     S1 = false, S2 = false, BN = "", MN = "", D = 5, H = 2, NC = true
 }
 
 -- [ REMOTES ]
 local _0xEF = workspace:WaitForChild("Enemies")
-local _0xNF = _0xNT:WaitForChild("Events"):WaitForChild("Forge")
-local _0xMF = _0xNT:WaitForChild("Events"):WaitForChild("MagicForge")
 local _0xRR = _0xST:FindFirstChild("Reward", true) or (_0xNT:FindFirstChild("Events") and _0xNT.Events:FindFirstChild("Reward"))
 local _0xWR = _0xST:WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("SetCurrentWorld")
 
@@ -92,33 +89,13 @@ T2:CreateButton({Name = "🌳 Back to World 1", Callback = function() _0xJump("W
 T2:CreateButton({Name = "❄️ Teleport to World 3", Callback = function() _0xJump("World3", CFrame.new(-365.156, -77.785, 243.321, 0.999, 0, -0.022, 0, 1, 0, 0.022, 0, 0.999)) end})
 T2:CreateButton({Name = "🌳 Back to World 1", Callback = function() _0xJump("World1", CFrame.new(-549.076, -50.449, 7150.094, -0.998, 0, -0.057, 0, 1, 0, 0.057, 0, -0.998)) end})
 
--- FORGE TAB
+-- FORGE TAB (MAINTENANCE)
 local T3 = W:CreateTab("⚒️ Forge", "hammer")
-T3:CreateSection("📖 Forge Tutorial")
-T3:CreateLabel("1. Turn ON ID Scanner")
-T3:CreateLabel("2. Forge any item ONCE manually")
-T3:CreateLabel("3. Turn OFF Scanner (ID saved)")
-T3:CreateLabel("4. Activate START AUTO FORGE")
-
-T3:CreateToggle({Name = "🔍 ID Scanner", CurrentValue = false, Callback = function(v) _0xCFG.SM = v end})
-local ID_Label = T3:CreateLabel("Current ID: None")
-T3:CreateDropdown({Name = "Forge Mode", Options = {"Normal Only (+6)", "Magic Only (+10)", "Auto Step (+6 -> +10)"}, CurrentOption = {"Auto Step (+6 -> +10)"}, Callback = function(v) _0xCFG.FM = v[1] end})
-T3:CreateToggle({Name = "🔥 START AUTO FORGE", CurrentValue = false, Callback = function(v)
-    _0xCFG.AF = v
-    task.spawn(function()
-        while _0xCFG.AF do
-            if _0xCFG.ID ~= "" then
-                pcall(function() 
-                    if _0xCFG.FM == "Normal Only (+6)" then _0xNF:FireServer(_0xCFG.ID, true) task.wait(0.7)
-                    elseif _0xCFG.FM == "Magic Only (+10)" then _0xMF:FireServer(_0xCFG.ID, true) task.wait(0.5)
-                    else _0xNF:FireServer(_0xCFG.ID, true) task.wait(0.35) _0xMF:FireServer(_0xCFG.ID, true) task.wait(0.35) end
-                end)
-            end
-            task.wait(0.1)
-        end
-    end)
-end})
-T3:CreateButton({Name = "🗑️ Reset Captured ID", Callback = function() _0xCFG.ID = "" ID_Label:Set("Current ID: None") end})
+T3:CreateSection("⚠️ System Maintenance")
+T3:CreateLabel("The Auto Forge feature is currently bugged.")
+T3:CreateLabel("As the developer of this script, I am working hard to fix it.")
+T3:CreateLabel("Please be patient and enjoy the other available features.")
+T3:CreateSection("Status: Under Repair")
 
 -- DUPE TAB
 local T4 = W:CreateTab("💰 Dupe", "coins")
@@ -138,6 +115,40 @@ T4:CreateButton({Name = "🎯 RUN CUSTOM DUPE", Callback = function()
     local idx = tonumber(_0xCFG.IV)
     if idx and _0xCFG.CA > 0 and _0xRR then 
         local pt = math.ceil(_0xCFG.CA/10)
+        for i=1,10 do task.spawn(function() for j=1,pt do _0xRR:FireServer("c_chr", idx) end end) end 
+        _0xRoot:Notify({Title = "Success", Content = "Custom Dupe Started", Duration = 2})
+    end
+end})
+
+-- UTILS TAB
+local T5 = W:CreateTab("⚙️ Utils", "settings")
+T5:CreateSlider({Name = "WalkSpeed", Range = {16, 300}, Increment = 1, CurrentValue = 16, Callback = function(v) if _0xC:FindFirstChild("Humanoid") then _0xC.Humanoid.WalkSpeed = v end end})
+T5:CreateToggle({Name = "🧱 Noclip", CurrentValue = true, Callback = function(v) _0xCFG.NC = v end})
+
+-- [ CORE LOOPS ]
+task.spawn(function()
+    while true do
+        if _0xCFG.FS and _0xTarget() then
+            if _0xCFG.S1 then _0xVIM:SendKeyEvent(true, Enum.KeyCode.One, false, game) end
+            if _0xCFG.S2 then _0xVIM:SendKeyEvent(true, Enum.KeyCode.Two, false, game) end
+        end
+        task.wait(0.2)
+    end
+end)
+
+_0xRS.Heartbeat:Connect(function()
+    if _0xCFG.FS and _0xH and _0xH.Parent then
+        local t = _0xTarget()
+        if t and t:FindFirstChild("HumanoidRootPart") then
+            local tr = t.HumanoidRootPart
+            local tp = (tr.CFrame * CFrame.new(0, _0xCFG.H, _0xCFG.D)).Position
+            _0xH.CFrame = CFrame.lookAt(tp, tr.Position)
+        end
+    end
+    if _0xCFG.NC and _0xC then
+        for _, v in pairs(_0xC:GetDescendants()) do if v:IsA("BasePart") then v.CanCollide = false end end
+    end
+end)
         for i=1,10 do task.spawn(function() for j=1,pt do _0xRR:FireServer("c_chr", idx) end end) end 
         _0xRoot:Notify({Title = "Success", Content = "Custom Dupe Started", Duration = 2})
     end
