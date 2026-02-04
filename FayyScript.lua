@@ -1,15 +1,10 @@
---[[
-    FAYYSCRIPT
-    Features: Smart Auto-Switch Forge (Armor Only), Complete Dupe, & Utils.
-]]
-
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "FAYYSCRIPT",
+   Name = "FAYYSCRIPT | VERSION 33.7",
    Icon = 0,
-   LoadingTitle = "FAYYSCRIPT",
-   LoadingSubtitle = "Forge, Dupe, & Utils Ready",
+   LoadingTitle = "FAYYSCRIPT SYSTEMS",
+   LoadingSubtitle = "Stable Forge & Dupe Performance",
    ConfigurationSaving = { Enabled = false }
 })
 
@@ -18,6 +13,7 @@ local RS = game:GetService("ReplicatedStorage")
 local Net = RS:WaitForChild("Net")
 local NormalForge = Net:WaitForChild("Events"):WaitForChild("Forge")
 local MagicForge = Net:WaitForChild("Events"):WaitForChild("MagicForge")
+local GetExists = Net:WaitForChild("Functions"):WaitForChild("GetExists")
 local RewardRemote = RS:FindFirstChild("Reward", true) or (Net:FindFirstChild("Events") and Net.Events:FindFirstChild("Reward"))
 
 -- [ GLOBALS ]
@@ -30,7 +26,7 @@ local CustomAmt = 0
 local Noclip = false
 
 -- ==========================================
--- REMOTE SPY LOGIC
+-- UNIFIED REMOTE SPY
 -- ==========================================
 local function StartSpy()
     local oldNamecall
@@ -38,7 +34,7 @@ local function StartSpy()
         local method = getnamecallmethod()
         local args = {...}
         
-        if CaptureMode and (self == NormalForge or self == MagicForge) and (method == "FireServer" or method == "fireServer") then
+        if CaptureMode and (self == NormalForge or self == MagicForge or self == GetExists) then
             if args[1] and type(args[1]) == "string" then
                 SelectedItemID = args[1]
                 Rayfield:Notify({Title = "FAYYSCRIPT", Content = "ID Captured: " .. SelectedItemID, Duration = 2})
@@ -50,18 +46,17 @@ end
 pcall(StartSpy)
 
 -- ==========================================
--- TAB 1: ⚒️ SMART FORGE
+-- TAB: ⚒️ SMART FORGE
 -- ==========================================
 local ForgeTab = Window:CreateTab("⚒️ Forge", 4483362458)
 
-ForgeTab:CreateSection("📖 Auto Forge Tutorial (Armor Only)")
-ForgeTab:CreateLabel("1. Turn on 'Enable ID Scanner'")
-ForgeTab:CreateLabel("2. Upgrade any Armor you want once")
-ForgeTab:CreateLabel("3. Turn off Scanner to stop notifications")
-ForgeTab:CreateLabel("4. Use 'Reset ID' if you want to upgrade other items")
-ForgeTab:CreateLabel("⚠️ Note: This feature is for ARMOR ONLY (Not for Weapons)")
+ForgeTab:CreateSection("📖 Forge Tutorial (Weapon & Armor)")
+ForgeTab:CreateLabel("Step 1: Turn ON 'Enable ID Scanner'")
+ForgeTab:CreateLabel("Step 2: Forge the item you want to upgrade ONCE")
+ForgeTab:CreateLabel("Step 3: Turn OFF 'Enable ID Scanner' (ID is now locked)")
+ForgeTab:CreateLabel("Step 4: Use 'Reset ID' if you want to forge a different item")
 
-ForgeTab:CreateSection("ID Grabber")
+ForgeTab:CreateSection("ID Configuration")
 
 ForgeTab:CreateToggle({
    Name = "🔍 Enable ID Scanner",
@@ -69,7 +64,7 @@ ForgeTab:CreateToggle({
    Callback = function(Value) CaptureMode = Value end,
 })
 
-local IdLabel = ForgeTab:CreateLabel("Current ID: Waiting for scan...")
+local IdLabel = ForgeTab:CreateLabel("Current ID: None")
 
 ForgeTab:CreateDropdown({
    Name = "Forge Mode",
@@ -86,7 +81,7 @@ ForgeTab:CreateToggle({
       task.spawn(function()
          while AutoForge do
             if SelectedItemID == "" then 
-                Rayfield:Notify({Title = "FAYYSCRIPT", Content = "ID Empty! Scan your item first.", Duration = 2})
+                Rayfield:Notify({Title = "Error", Content = "No ID captured!", Duration = 2})
                 AutoForge = false break 
             end
             
@@ -104,7 +99,7 @@ ForgeTab:CreateToggle({
                     task.wait(0.4)
                 end
             end)
-            IdLabel:Set("Processing: " .. SelectedItemID)
+            IdLabel:Set("Processing ID: " .. SelectedItemID)
          end
       end)
    end,
@@ -112,42 +107,46 @@ ForgeTab:CreateToggle({
 
 ForgeTab:CreateButton({
    Name = "🗑️ Reset ID",
-   Callback = function() SelectedItemID = "" IdLabel:Set("Current ID: Empty") end,
+   Callback = function() 
+      SelectedItemID = "" 
+      IdLabel:Set("Current ID: None") 
+      Rayfield:Notify({Title = "FAYYSCRIPT", Content = "ID Cleared successfully!", Duration = 2})
+   end,
 })
 
 -- ==========================================
--- TAB 2: 💰 COMPLETE DUPE
+-- TAB: 💰 COMPLETE DUPE
 -- ==========================================
 local DupeTab = Window:CreateTab("💰 Dupe System", 4483345998)
 
 DupeTab:CreateSection("📖 Dupe Tutorial")
-DupeTab:CreateLabel("1. Gacha/Roll any item you want")
-DupeTab:CreateLabel("2. Enter the Item Index (1st Gacha = 2, 2nd = 3, etc.)")
-DupeTab:CreateLabel("3. For each new gacha, index increases by +1")
-DupeTab:CreateLabel("4. Recommended: Use Custom Dupe for Armor")
+DupeTab:CreateLabel("Step 1: Obtain an item from Gacha/Roll")
+DupeTab:CreateLabel("Step 2: Use Index '2' for your 1st Gacha item")
+DupeTab:CreateLabel("Step 3: Increase Index by +1 for every new Gacha slot")
+DupeTab:CreateLabel("Step 4: Use 'Custom Amount' for specific quantity needs")
 
-DupeTab:CreateSection("Dupe Execution")
+DupeTab:CreateSection("Execution")
 
 DupeTab:CreateInput({
-   Name = "Item Index",
+   Name = "Item Index ID",
    PlaceholderText = "Example: 2",
    Callback = function(Text) IndexVal = Text end,
 })
 
 DupeTab:CreateButton({
-   Name = "🚀 INSTANT DUPE (5000)",
+   Name = "🚀 INSTANT DUPE (5000x)",
    Callback = function()
       local idx = tonumber(IndexVal)
       if idx and RewardRemote then
          for i = 1, 10 do task.spawn(function() for j = 1, 500 do RewardRemote:FireServer("c_chr", idx) end end) end
-         Rayfield:Notify({Title = "FAYYSCRIPT", Content = "Sending 5000 items...", Duration = 3})
+         Rayfield:Notify({Title = "FAYYSCRIPT", Content = "5000 items successfully sent!", Duration = 3})
       end
    end,
 })
 
 DupeTab:CreateInput({
    Name = "Custom Amount",
-   PlaceholderText = "Enter number...",
+   PlaceholderText = "Enter amount...",
    Callback = function(Text) CustomAmt = tonumber(Text) or 0 end,
 })
 
@@ -157,13 +156,13 @@ DupeTab:CreateButton({
       local idx = tonumber(IndexVal)
       if idx and CustomAmt > 0 and RewardRemote then
          for i = 1, 10 do task.spawn(function() for j = 1, math.ceil(CustomAmt/10) do RewardRemote:FireServer("c_chr", idx) end end) end
-         Rayfield:Notify({Title = "FAYYSCRIPT", Content = "Sending "..CustomAmt.." items...", Duration = 3})
+         Rayfield:Notify({Title = "FAYYSCRIPT", Content = "Custom dupe initiated!", Duration = 3})
       end
    end,
 })
 
 -- ==========================================
--- TAB 3: 🏃 UTILS
+-- TAB: 🏃 UTILS
 -- ==========================================
 local UtilsTab = Window:CreateTab("🏃 Utils", 4483362458)
 
