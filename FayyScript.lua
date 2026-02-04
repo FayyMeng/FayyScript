@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "FAYYSCRIPT | VERSION 33.7",
+   Name = "FAYYSCRIPT | VERSION 1.2",
    Icon = 0,
    LoadingTitle = "FAYYSCRIPT SYSTEMS",
    LoadingSubtitle = "Stable Forge & Dupe Performance",
