@@ -1,3 +1,8 @@
+--[[
+    FAYYSCRIPT
+    Features: Smart Auto-Switch Forge (Armor Only), Complete Dupe, & Utils.
+]]
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
