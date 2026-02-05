@@ -112,12 +112,12 @@ pcall(StartSniffer)
 
 -- [[ UI INITIALIZATION ]] --
 local Window = Rayfield:CreateWindow({
-    Name = "FayyScript Premium v2",
-    LoadingTitle = "Pro Farm System",
+    Name = "FayyScript",
+    LoadingTitle = "FayyScript",
     ConfigurationSaving = {Enabled = false}
 })
 
--- ### TAB: AUTO FARM ###
+--- ### 1. TAB: AUTO FARM ### ---
 local T1 = Window:CreateTab("👾 Auto Farm", "swords")
 T1:CreateSection("Target Selection")
 local B_Drop = T1:CreateDropdown({Name = "Select Boss", Options = _0xGetE(true), CurrentOption = {"None"}, Callback = function(o) _0xCFG.BN = o[1] == "None" and "" or o[1] end})
@@ -128,7 +128,7 @@ T1:CreateToggle({Name = "ENABLE AUTO-FARM", CurrentValue = false, Callback = fun
 T1:CreateToggle({Name = "Spam Skill [1]", CurrentValue = false, Callback = function(v) _0xCFG.S1 = v end})
 T1:CreateToggle({Name = "Spam Skill [2]", CurrentValue = false, Callback = function(v) _0xCFG.S2 = v end})
 
--- ### TAB: FORGE ###
+--- ### 2. TAB: FORGE ### ---
 local T2 = Window:CreateTab("⚒️ Forge", "hammer")
 T2:CreateSection("Auto Forge Setup")
 T2:CreateDropdown({Name = "Forge Mode", Options = {"Normal", "Magic"}, CurrentOption = {"Normal"}, Callback = function(v) _0xCFG.ForgeMode = v[1] end})
@@ -138,7 +138,7 @@ T2:CreateSection("Automation")
 T2:CreateToggle({Name = "Enable Auto Forge", CurrentValue = false, Callback = function(v) _0xCFG.ForgeEnabled = v end})
 T2:CreateSlider({Name = "Forge Speed", Range = {0.5, 5}, Increment = 0.1, CurrentValue = 1.2, Callback = function(v) _0xCFG.ForgeDelay = v end})
 
--- ### TAB: DUPE ###
+--- ### 3. TAB: DUPE ### ---
 local T3 = Window:CreateTab("💰 Dupe", "coins")
 T3:CreateSection("Configuration")
 T3:CreateInput({Name = "Item Index", PlaceholderText = "Slot 1 = 2...", Callback = function(v) _0xCFG.IV = v end})
@@ -158,37 +158,35 @@ T3:CreateButton({Name = "🎯 Run Custom Dupe", Callback = function()
     end
 end})
 
--- ### TAB: TUTORIAL ###
-local T4 = Window:CreateTab("📖 Tutorial", "book")
-T4:CreateSection("Auto Forge Guide")
-T4:CreateLabel("1. Select Mode (Normal/Magic)")
-T4:CreateLabel("2. Click 'Start Sniffing'")
-T4:CreateLabel("3. Forge the item MANUALLY 1x in-game")
-T4:CreateLabel("4. When 'ID Captured' appears, enable Auto Forge")
-T4:CreateSection("Item Index Guide")
-T4:CreateLabel("1. 1st Gacha: Index 2 | 2nd Gacha: Index 3")
-T4:CreateLabel("2. Every new gacha: Index increases by +1")
-T4:CreateSection("General Notes")
-T4:CreateLabel("- Skills only work when Auto-Farm is ON and enemy is detected.")
-T4:CreateLabel("- Use Custom Dupe for Armor to prevent game crashes.")
-
--- ### TAB: EXTRA & WORLD ###
-local T5 = Window:CreateTab("🌍 Extra", "settings")
-T5:CreateSection("Auto Chest")
-local ChestToggle = T5:CreateToggle({
+--- ### 4. TAB: EXTRA & WORLD ### ---
+local T4 = Window:CreateTab("🌍 Extra", "settings")
+T4:CreateSection("Auto Chest")
+local ChestToggle = T4:CreateToggle({
     Name = "Auto Collect Chests", 
     CurrentValue = false, 
     Callback = function(v) _0xCFG.ACChest = v end
 })
+T4:CreateSection("Teleport")
+T4:CreateButton({Name = "🌌 World 3", Callback = function() _0xHP.CFrame = CFrame.new(-365.156525, -77.7850571, 243.321716) end})
+T4:CreateButton({Name = "🌌 World 2", Callback = function() _0xHP.CFrame = CFrame.new(-359.734, -78.698, 266.681) end})
+T4:CreateButton({Name = "🌳 World 1", Callback = function() _0xHP.CFrame = CFrame.new(-6106.934, -74.759, 370.924) end})
+T4:CreateSection("Character")
+T4:CreateSlider({Name = "WalkSpeed", Range = {16, 300}, Increment = 1, CurrentValue = 16, Callback = function(v) if _0xC:FindFirstChild("Humanoid") then _0xC.Humanoid.WalkSpeed = v end end})
+T4:CreateToggle({Name = "🧱 Noclip", CurrentValue = true, Callback = function(v) _0xCFG.NC = v end})
 
-T5:CreateSection("Teleport")
-T5:CreateButton({Name = "🌌 World 3", Callback = function() _0xHP.CFrame = CFrame.new(-365.156525, -77.7850571, 243.321716) end}) -- UPDATED CFrame
-T5:CreateButton({Name = "🌌 World 2", Callback = function() _0xHP.CFrame = CFrame.new(-359.734, -78.698, 266.681) end})
-T5:CreateButton({Name = "🌳 World 1", Callback = function() _0xHP.CFrame = CFrame.new(-6106.934, -74.759, 370.924) end})
-
-T5:CreateSection("Character")
-T5:CreateSlider({Name = "WalkSpeed", Range = {16, 300}, Increment = 1, CurrentValue = 16, Callback = function(v) if _0xC:FindFirstChild("Humanoid") then _0xC.Humanoid.WalkSpeed = v end end})
-T5:CreateToggle({Name = "🧱 Noclip", CurrentValue = true, Callback = function(v) _0xCFG.NC = v end})
+--- ### 5. TAB: TUTORIAL ### ---
+local T5 = Window:CreateTab("📖 Tutorial", "book")
+T5:CreateSection("Auto Forge Guide")
+T5:CreateLabel("1. Select Mode (Normal/Magic)")
+T5:CreateLabel("2. Click 'Start Sniffing'")
+T5:CreateLabel("3. Forge the item MANUALLY 1x in-game")
+T5:CreateLabel("4. When 'ID Captured' appears, enable Auto Forge")
+T5:CreateSection("Item Index Guide")
+T5:CreateLabel("1. 1st Gacha: Index 2 | 2nd Gacha: Index 3")
+T5:CreateLabel("2. Every new gacha: Index increases by +1")
+T5:CreateSection("General Notes")
+T5:CreateLabel("- Skills only work when Auto-Farm is ON and enemy is detected.")
+T5:CreateLabel("- Use Custom Dupe for Armor to prevent game crashes.")
 
 -- [[ LOOPS ]] --
 
@@ -238,71 +236,6 @@ task.spawn(function()
 end)
 
 -- Heartbeat
-_0xRS.Heartbeat:Connect(function()
-    if _0xCFG.FS and _0xHP and _0xHP.Parent then
-        local t = _0xTarget()
-        if t and t:FindFirstChild("HumanoidRootPart") then
-            _0xHP.CFrame = CFrame.lookAt((t.HumanoidRootPart.CFrame * CFrame.new(0, _0xCFG.H, _0xCFG.D)).Position, t.HumanoidRootPart.Position)
-        end
-    end
-    if _0xCFG.NC and _0xC then
-        for _, v in pairs(_0xC:GetDescendants()) do if v:IsA("BasePart") then v.CanCollide = false end end
-    end
-end)-- ### TAB: DUPE ###
-local T3 = Window:CreateTab("💰 Dupe", "coins")
-T3:CreateSection("Configuration")
-T3:CreateInput({Name = "Item Index", PlaceholderText = "Slot 1 = 2...", Callback = function(v) _0xCFG.IV = v end})
-T3:CreateSection("Fast Dupe")
-T3:CreateButton({Name = "🚀 Instant Dupe (5000x)", Callback = function()
-    local idx = tonumber(_0xCFG.IV)
-    if idx and _0xRR then for i=1,10 do task.spawn(function() for j=1,500 do _0xRR:FireServer("c_chr", idx) end end) end end
-end})
-T3:CreateSection("Custom Dupe (🛡️ Recommended for Armor)")
-T3:CreateLabel("Safe method to prevent game crashes during Armor Dupe.")
-T3:CreateInput({Name = "Custom Amount", PlaceholderText = "Amount...", Callback = function(v) _0xCFG.CA = tonumber(v) or 0 end})
-T3:CreateButton({Name = "🎯 Run Custom Dupe", Callback = function()
-    local idx = tonumber(_0xCFG.IV)
-    if idx and _0xCFG.CA > 0 and _0xRR then 
-        local pt = math.ceil(_0xCFG.CA/10)
-        for i=1,10 do task.spawn(function() for j=1,pt do _0xRR:FireServer("c_chr", idx) end end) end 
-    end
-end})
-
--- ### TAB: TUTORIAL ###
-local T4 = Window:CreateTab("📖 Tutorial", "book")
-T4:CreateSection("Forge Tutorial")
-T4:CreateLabel("1. Choose Mode (Normal/Magic)")
-T4:CreateLabel("2. Click 'Start Sniffing'")
-T4:CreateLabel("3. Forge item MANUALLY 1x in game")
-T4:CreateLabel("4. After 'ID Captured' notif, enable Auto Forge")
-T4:CreateSection("Index Tutorial")
-T4:CreateLabel("1. Gacha 1st: Index 2 | 2nd: Index 3")
-T4:CreateLabel("2. Every new gacha: Index increases by +1")
-T4:CreateLabel("- Use Custom Dupe for Armor to avoid game crashes.")
-
--- ### TAB: WORLD & UTILS ###
-local T5 = Window:CreateTab("🌍 Extra", "settings")
-T5:CreateSection("Teleport")
-T5:CreateButton({Name = "🌌 World 2", Callback = function() _0xJump("World2", CFrame.new(-359.734, -78.698, 266.681)) end})
-T5:CreateButton({Name = "🌳 World 1", Callback = function() _0xJump("World1", CFrame.new(-6106.934, -74.759, 370.924)) end})
-T5:CreateButton({Name = "❄️ World 3", Callback = function() _0xJump("World3", CFrame.new(-365.156, -77.785, 243.321)) end})
-T5:CreateSection("Character")
-T5:CreateSlider({Name = "WalkSpeed", Range = {16, 300}, Increment = 1, CurrentValue = 16, Callback = function(v) if _0xC:FindFirstChild("Humanoid") then _0xC.Humanoid.WalkSpeed = v end end})
-T5:CreateToggle({Name = "🧱 Noclip", CurrentValue = true, Callback = function(v) _0xCFG.NC = v end})
-
--- [[ LOOPS ]] --
-task.spawn(function()
-    while true do
-        if _0xCFG.ForgeEnabled and _0xCFG.CapturedID then
-            pcall(function()
-                if _0xCFG.ForgeMode == "Normal" then ForgeNormal:FireServer(_0xCFG.CapturedID, true)
-                else ForgeMagic:FireServer(_0xCFG.CapturedID, true) end
-            end)
-        end
-        task.wait(_0xCFG.ForgeDelay)
-    end
-end)
-
 _0xRS.Heartbeat:Connect(function()
     if _0xCFG.FS and _0xHP and _0xHP.Parent then
         local t = _0xTarget()
