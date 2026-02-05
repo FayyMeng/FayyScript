@@ -87,7 +87,6 @@ T2:CreateSection("World Navigation")
 T2:CreateButton({Name = "🌌 Teleport to World 2", Callback = function() _0xJump("World2", CFrame.new(-359.734, -78.698, 266.681, 0.877, 0, 0.480, 0, 1, 0, -0.480, 0, 0.877)) end})
 T2:CreateButton({Name = "🌳 Back to World 1", Callback = function() _0xJump("World1", CFrame.new(-6106.934, -74.759, 370.924, -0.057, 0, 0.998, 0, 1, 0, -0.998, 0, -0.057)) end})
 T2:CreateButton({Name = "❄️ Teleport to World 3", Callback = function() _0xJump("World3", CFrame.new(-365.156, -77.785, 243.321, 0.999, 0, -0.022, 0, 1, 0, 0.022, 0, 0.999)) end})
-T2:CreateButton({Name = "🌳 Back to World 1", Callback = function() _0xJump("World1", CFrame.new(-549.076, -50.449, 7150.094, -0.998, 0, -0.057, 0, 1, 0, 0.057, 0, -0.998)) end})
 
 -- FORGE TAB (MAINTENANCE)
 local T3 = W:CreateTab("⚒️ Forge", "hammer")
@@ -138,6 +137,17 @@ end)
 
 _0xRS.Heartbeat:Connect(function()
     if _0xCFG.FS and _0xH and _0xH.Parent then
+        local t = _0xTarget()
+        if t and t:FindFirstChild("HumanoidRootPart") then
+            local tr = t.HumanoidRootPart
+            local tp = (tr.CFrame * CFrame.new(0, _0xCFG.H, _0xCFG.D)).Position
+            _0xH.CFrame = CFrame.lookAt(tp, tr.Position)
+        end
+    end
+    if _0xCFG.NC and _0xC then
+        for _, v in pairs(_0xC:GetDescendants()) do if v:IsA("BasePart") then v.CanCollide = false end end
+    end
+end)
         local t = _0xTarget()
         if t and t:FindFirstChild("HumanoidRootPart") then
             local tr = t.HumanoidRootPart
