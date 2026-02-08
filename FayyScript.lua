@@ -18,14 +18,12 @@ _0xS.P.LocalPlayer.CharacterAdded:Connect(function(nc)
     _0xHP = nc:WaitForChild("HumanoidRootPart")
 end)
 
-        
 local _0xCFG = {
     IV = "", CA = 0, FS = false, BN = "", MN = "", D = 5, H = 2, NC = false, 
     S1 = false, S2 = false, ACChest = false,
     WEBHOOK = "https://discord.com/api/webhooks/1468827635860766895/63O9-98WC7WqZAyB2tNKQ0heVshck_GjAwE3ppwTGnw_ueYj9KJsm9UrC87a1am8rxLf",
     ForgeEnabled = false, Sniffing = false, CapturedID = nil, ForgeDelay = 1.2, ForgeMode = "Normal"
 }
-
 
 local ChestLocations = {
     CFrame.new(-6013.7, -68.8, 352.3), CFrame.new(-6169.7, -79.0, 104.0),
@@ -45,7 +43,6 @@ task.spawn(function()
     end)
 end)
 
-
 pcall(function()
     local old; old = hookmetamethod(game, "__namecall", function(self, ...)
         local m = getnamecallmethod()
@@ -58,11 +55,10 @@ pcall(function()
     end)
 end)
 
-
 local function _0xGetE(isBoss)
     local list = {"None"}
     local seen = {}
-    local bossNames = {["Mage Of Darkness"] = true, ["Bear"] = true, ["Yeti"] = true}
+    local bossNames = {["Mage Of Darkness"] = true, ["Bear"] = true, ["Yeti"] = true, ["Dragon"] = true,}
     if workspace:FindFirstChild("Enemies") then
         for _, v in pairs(workspace.Enemies:GetChildren()) do
             if not seen[v.Name] then
@@ -76,7 +72,7 @@ local function _0xGetE(isBoss)
 end
 
 -- [[ UI INITIALIZATION ]] --
-local Window = Rayfield:CreateWindow({Name = "FayyScript V1.2", LoadingTitle = "Full System Integrity Check...", ConfigurationSaving = {Enabled = false}})
+local Window = Rayfield:CreateWindow({Name = "FayyScript UPDATE", LoadingTitle = "Integrity System Check...", ConfigurationSaving = {Enabled = false}})
 
 -- 1. TAB: AUTO FARM
 local T1 = Window:CreateTab("👾 Auto Farm", "swords")
@@ -130,12 +126,13 @@ local T4 = Window:CreateTab("🌍 World", "settings")
 T4:CreateSection("Utilities")
 local ChestToggle = T4:CreateToggle({Name = "Auto Collect Chests", CurrentValue = false, Callback = function(v) _0xCFG.ACChest = v end})
 T4:CreateToggle({Name = "🧱 Noclip", CurrentValue = false, Callback = function(v) _0xCFG.NC = v end})
-T4:CreateSection("Teleports")
-T4:CreateButton({Name = "World 3", Callback = function() _0xHP.CFrame = CFrame.new(-365.1, -77.7, 243.3) end})
-T4:CreateButton({Name = "World 2", Callback = function() _0xHP.CFrame = CFrame.new(-359.7, -78.6, 266.6) end})
-T4:CreateButton({Name = "World 1", Callback = function() _0xHP.CFrame = CFrame.new(-6106.9, -74.7, 370.9) end})
+T4:CreateSection("Teleports (Updated)")
+T4:CreateButton({Name = "World 4", Callback = function() _0xHP.CFrame = CFrame.new(2568.83374, -344.678528, 128.795502, 1, 0, 0, 0, 1, 0, 0, 0, 1) end})
+T4:CreateButton({Name = "World 3", Callback = function() _0xHP.CFrame = CFrame.new(-795.724976, -45.3973236, 7150.30029, 0, 0, -1, 0, 1, 0, 1, 0, 0) end})
+T4:CreateButton({Name = "World 2", Callback = function() _0xHP.CFrame = CFrame.new(-6105.6875, -62.7493248, 22.8741302, 1, 0, 0, 0, 1, 0, 0, 0, 1) end})
+T4:CreateButton({Name = "World 1", Callback = function() _0xHP.CFrame = CFrame.new(-135.575699, -83.9929276, 247.275635, 0, 0, 1, 1, 0, 0, 0, 1, 0) end})
 
--- 5. TAB: GUIDE (COMPLETE & CLEAR)
+-- 5. TAB: GUIDE
 local T5 = Window:CreateTab("📖 Guide", "book")
 T5:CreateSection("💰 Dupe Tutorial (Black Market)")
 T5:CreateLabel("1. Gacha/Spin first in the Black Market.")
@@ -152,7 +149,6 @@ T5:CreateLabel("- Select a target from the dropdown.")
 T5:CreateLabel("- Use 'Refresh' if enemies don't show up.")
 
 -- [[ ENGINE LOOPS ]] --
-
 _0xS.RS.Stepped:Connect(function()
     if _0xCFG.NC and _0xC then
         for _, v in pairs(_0xC:GetDescendants()) do if v:IsA("BasePart") then v.CanCollide = false end end
