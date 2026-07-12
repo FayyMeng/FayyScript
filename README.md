@@ -1,2 +1,2 @@
 # FayyScript
-Secret
+Nothing
